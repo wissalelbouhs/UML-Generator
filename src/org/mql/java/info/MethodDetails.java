@@ -8,6 +8,10 @@ public class MethodDetails {
     private String returnType;
     private String parameters;
     private String accessModifier;
+    
+    public MethodDetails() {
+		// TODO Auto-generated constructor stub
+	}
 
     public MethodDetails(Method method) {
         this.methodName = method.getName();
