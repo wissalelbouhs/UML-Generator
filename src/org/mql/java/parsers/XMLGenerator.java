@@ -1,4 +1,4 @@
-package org.mq.java.parsers;
+package org.mql.java.parsers;
 
 import java.io.File;
 import java.io.IOException;

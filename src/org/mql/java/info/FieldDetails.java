@@ -14,7 +14,30 @@ public class FieldDetails {
     public FieldDetails() {
 		// TODO Auto-generated constructor stub
 	}
+    public FieldDetails(Field field) {
+        
+        fieldName = field.getName();
+        fieldType = field.getType().getName();
+        simpleTypeName = field.getType().getSimpleName();
+        accessModifier = determineAccessModifier(field.getModifiers());
 
+        if (List.class.isAssignableFrom(field.getType())) {
+            Type genericType = field.getGenericType();
+            if (genericType instanceof ParameterizedType) {
+                ParameterizedType parameterizedType = (ParameterizedType) genericType;
+                Type[] typeArguments = parameterizedType.getActualTypeArguments();
+                if (typeArguments.length > 0) {
+                    fieldType = typeArguments[0].getTypeName();
+                }
+            }
+            estTypeExterne = true;
+            isCollection = true;
+        } else {
+            estTypeExterne = !field.getType().isPrimitive() && !field.getType().getName().startsWith("java");
+            isCollection = false;
+        }
+    }
+/*
     public FieldDetails(Field field) {
         this.fieldName = field.getName();
         this.fieldType = field.getType().getName();
@@ -22,7 +45,7 @@ public class FieldDetails {
         this.accessModifier = determineAccessModifier(field.getModifiers());
         this.estTypeExterne = checkIfExternalType(field);
         this.isCollection = checkIfCollection(field);
-    }
+    }*/
 
     private String determineAccessModifier(int modifiers) {
         if (Modifier.isPublic(modifiers)) {

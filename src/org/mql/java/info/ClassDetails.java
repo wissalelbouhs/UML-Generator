@@ -13,6 +13,7 @@ public class ClassDetails {
     private String fullClassName;
     private String classModifiers;
     private String parentClass;
+    private FieldDetails f;
     private List<FieldDetails> classFields;
     private List<MethodDetails> classMethods;
     private List<LinkDetails> classRelations;
