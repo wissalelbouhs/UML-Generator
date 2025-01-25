@@ -13,7 +13,10 @@ import org.mql.java.info.ClassDetails;
 import org.mql.java.info.PackageDetails;
 
 import org.mql.java.parsers.JavaPackageExplorer;
+import org.mql.java.parsers.XMLGenerator;
+import org.mql.java.parsers.XMLParser;
 import org.mql.java.ui.Diagram;
+import org.w3c.dom.Document;
 
 
 public class UMLGenerator {
@@ -49,8 +52,21 @@ public class UMLGenerator {
             JScrollPane scrollPane = new JScrollPane(parentPanel);
             frame.add(scrollPane);
             frame.setVisible(true);
-        });     
+        });  
+        try {
+            PackageDetails rootPackage = new JavaPackageExplorer("org.mql.java").scan();
+
+            Document xmlDocument = XMLGenerator.generateXML(rootPackage);
+
+            XMLGenerator.displayXMLContent(xmlDocument);
+            
+            PackageDetails mypkg = new XMLParser("resources/generatedXML/java.xml").parse();
+            System.out.println(mypkg);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
         
         
     }
-}
